@@ -1,22 +1,32 @@
+class Node:
+    def __init__(self, data, node=None):
+        self.data = data
+        self.next = node
+
 class Queue:
+
     def __init__(self):
-        self._data = []
-
-    def push(self, x: int) -> None:
-        self._data.append(x)
-
-    def pop(self) -> int:
-        if self._data:
-            return self._data.pop(0)
-        return None
-
-    def top(self) -> int:
-        if self._data:
-            return self._data[0]
-        return None
+        self.head = None
 
     def is_empty(self) -> bool:
-        return len(self._data) == 0
+        return self.head is None
+
+    def push(self, x: int) -> None:
+        if self.is_empty():
+            self.head = Node(x)
+        else:
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = Node(x)
+
+    def pop(self) -> int:
+        result = self.head.data
+        self.head = self.head.next
+        return result
+
+    def top(self) -> int:
+        return self.head.data
 
 
 class MyStack:
